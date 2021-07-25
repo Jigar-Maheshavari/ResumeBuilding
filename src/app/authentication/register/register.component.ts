@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   allUsers: any;
   signUpForm: any;
   exist: boolean = false;
-  propertyNames:any;
+  propertyNames: any;
   constructor(private formBuilder: FormBuilder, private router: Router, private authenticationService: AuthenticationService) {
     this.createForm();
     this.getAllUser();
@@ -23,28 +23,28 @@ export class RegisterComponent implements OnInit {
   }
 
   getAllUser() {
-    this.authenticationService.getAllUser().subscribe((response: any) => {
-      this.allUsers = response;
-      console.log(this.allUsers);
-      this.propertyNames = Object.keys(this.allUsers);
+    this.authenticationService.getAllUser().subscribe((data: any) => {
+      this.allUsers = data.map((e:any) => {
+        return {
+          id: e.payload.doc.id,
+          ...e.payload.doc.data()
+        };
+      })
     });
   }
 
   createUser() {
-    for(let i=0;i<this.propertyNames.length;i++) {
-      if (this.allUsers[this.propertyNames[i]].email == this.signUpForm.controls['email'].value) {
+    for (let i = 0; i < this.allUsers.length; i++) {
+      if (this.allUsers[i].email == this.signUpForm.controls['email'].value) {
         this.exist = true;
       }
     }
     if (!this.exist) {
-      this.authenticationService.createUser(this.signUpForm.value).subscribe((value) => {
-        if (value) {
-          alert('Your account has been created successfully you may logIn now.')
-          this.router.navigate(['/auth/login']);
-        }
-      })
+      this.authenticationService.createUser(this.signUpForm.value);
+      this.router.navigate(['/login']);
     }
-    else{
+
+    else {
       alert('email already taken..');
     }
   }
