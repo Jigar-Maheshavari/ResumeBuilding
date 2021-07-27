@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
     }
     if (!this.exist) {
       this.authenticationService.createUser(this.signUpForm.value);
-      this.router.navigate(['/login']);
+      this.router.navigate(['/auth/login']);
     }
 
     else {
