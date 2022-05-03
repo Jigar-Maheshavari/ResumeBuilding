@@ -9,7 +9,8 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { AcademicDetailComponent } from './academic-detail/academic-detail.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CareerDetailComponent } from './career-detail/career-detail.component';
-
+import jspdf from 'jspdf';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { CareerDetailComponent } from './career-detail/career-detail.component';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class SharedModule { }

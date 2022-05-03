@@ -1,1 +1,30 @@
-<p>user-detail works!</p>
+<div class="abc" id="content">
+    <div class="add-lessons-form" [formGroup]="resumeForm">
+        <ng-container [formArrayName]="qulification">
+            <ng-container *ngFor="let qulificationForm of getForm('qulification').controls; let i = index">
+                <div class="lesson-form-row" [formGroup]="qulificationForm">
+                    <!-- <mat-form-field appearance="fill"> -->
+                    <input matInput formControlName="std" placeholder="Lesson title">
+                    <input matInput formControlName="completedYear" placeholder="Lesson title">
+                    <input matInput formControlName="marks" placeholder="Lesson title">
+                    <input matInput formControlName="from" placeholder="Lesson title">
+                    <!-- </mat-form-field> -->
+                    <!-- <mat-form-field appearance="fill">
+                        <mat-select formControlName="level" placeholder="Lesson level">
+                            <mat-option value="beginner">Beginner</mat-option>
+                            <mat-option value="intermediate">Intermediate</mat-option>
+                            <mat-option value="advanced">Advanced</mat-option>
+                        </mat-select>
+                    </mat-form-field> -->
+                    <!-- <mat-icon class="delete-btn" (click)="delete('qulification',i)">
+                        delete_forever</mat-icon> -->
+                </div>
+            </ng-container>
+        </ng-container>
+
+        <button mat-mini-fab >
+            <!-- <mat-icon class="add-course-btn">add</mat-icon> -->
+        </button>
+
+    </div>
+</div>

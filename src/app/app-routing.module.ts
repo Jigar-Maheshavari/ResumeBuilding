@@ -18,6 +18,10 @@ const routes: Routes = [
     canActivate:[AuthenticationGuard],
     loadChildren:()=>import('./pages/pages.module').then(m=>  m.PagesModule)
   },
+  {
+    path :'**',
+    redirectTo : '/home'
+  }
 ];
 
 @NgModule({

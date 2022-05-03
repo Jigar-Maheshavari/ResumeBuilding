@@ -21,13 +21,16 @@ export class AuthenticationService {
   }
 
   validateUser(payload: any) {
+    console.log('payload: ', payload);
     return this.getAllUser().subscribe((value: any) => {
+      console.log('value: ', value);
       let array = value.map((e: any) => {
         return {
           id: e.payload.doc.id,
           ...e.payload.doc.data()
         };
       })
+      console.log('array: ', array);
       for (let i = 0; i < array.length; i++) {
         if (array[i].email == payload.email && payload.password == array[i].password) {
           this.credentials = array[i];
@@ -46,7 +49,7 @@ export class AuthenticationService {
   }
 
   activeUser(payload: any) {
-    return this.firestore.collection('activeUsers').add({email:payload.email,password:payload.password});
+    return this.firestore.collection('activeUsers').add({ email: payload.email, password: payload.password });
   }
 
   getAllActiveUser() {
@@ -57,6 +60,7 @@ export class AuthenticationService {
     let activeUser: any = { id: '' };
     let allUsers: any;
     this.getAllActiveUser().subscribe((data: any) => {
+      console.log('data: ', data);
       allUsers = data.map((e: any) => {
         return {
           id: e.payload.doc.id,
@@ -64,15 +68,16 @@ export class AuthenticationService {
         };
       })
       for (let i = 0; i < allUsers.length; i++) {
-        if (allUsers[i].email == this.credentials.email ) {
+        if (allUsers[i].email == this.credentials.email) {
           activeUser.id = allUsers[i].id;
         }
       }
+      console.log('activeUser.id: ', activeUser.id);
       this.firestore.doc('activeUsers/' + activeUser.id).delete();
       this.userAdded.next(null);
-      return this.router.navigateByUrl('/auth/login', {
-        replaceUrl: true
-      })
     });
+    return this.router.navigateByUrl('/auth/login', {
+      replaceUrl: true
+    })
   }
 }

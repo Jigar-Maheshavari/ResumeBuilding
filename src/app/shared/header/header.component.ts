@@ -33,9 +33,9 @@ export class HeaderComponent implements OnInit {
   }
 
   logout() {
-    if (confirm('are you sure you want to logout')) {
-      localStorage.removeItem('credentials');
+    // if (confirm('are you sure you want to logout')) {
+      // localStorage.removeItem('credentials');
       this.authenticationService.removeUser();
-    }
+    // }F
   }
 }
